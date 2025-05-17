@@ -1,0 +1,23 @@
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #00000999;
+	z-index: 5;
+	display: grid;
+	place-content: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease-in-out, visibility 0.3s;
+}
+.modal-content {
+	background-color: #fff;
+	padding: 1em;
+	border-radius: 0.75em;
+}
+.showModal {
+	opacity: 1;
+	visibility: visible;
+}
