@@ -51,79 +51,113 @@ function Form({ onSubmit, onCancel, user = null }) {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmitForm)}>
-			<div className="form-floating">
+		<form
+			onSubmit={handleSubmit(onSubmitForm)}
+			className="space-y-4 bg-white p-6 rounded shadow-md w-full max-w-md mx-auto"
+		>
+			<div>
 				<input
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="First name"
 					{...register('first_name')}
 				/>
-				{errors.name && <p>{errors.name?.message}</p>}
+				{errors.first_name && (
+					<p className="text-red-500 text-sm mt-1">
+						{errors.first_name?.message}
+					</p>
+				)}
 			</div>
 
-			<div className="form-floating mb-3">
+			<div>
 				<input
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="Last name"
 					{...register('last_name')}
 				/>
 
-				{errors.last_name && <p>{errors.last_name?.message}</p>}
+				{errors.last_name && (
+					<p className="text-red-500 text-sm mt-1">
+						{errors.last_name?.message}
+					</p>
+				)}
 			</div>
 
-			<div className="form-floating mb-3">
+			<div>
 				<input
 					type="email"
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="Email"
 					{...register('email')}
 				/>
 
-				{errors.email && <p>{errors.email?.message}</p>}
+				{errors.email && (
+					<p className="text-red-500 text-sm mt-1">{errors.email?.message}</p>
+				)}
 			</div>
 
-			<div className="form-floating mb-3">
+			<div>
 				<input
 					type="password"
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="Password"
 					{...register('password')}
 				/>
 
-				{errors.password && <p>{errors.password?.message}</p>}
+				{errors.password && (
+					<p className="text-red-500 text-sm mt-1">
+						{errors.password?.message}
+					</p>
+				)}
 			</div>
 
-			<div className="form-floating mb-3">
+			<div>
 				<input
 					type="date"
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="Birthday"
 					{...register('birthday')}
 				/>
 
-				{errors.birthday && <p>{errors.birthday?.message}</p>}
+				{errors.birthday && (
+					<p className="text-red-500 text-sm mt-1">
+						{errors.birthday?.message}
+					</p>
+				)}
 			</div>
-			<div className="form-floating mb-3">
+			<div>
 				<input
-					className="form-control"
+					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
 					placeholder="Image URL"
 					{...register('image_url')}
 				/>
-				{errors.image_url && <p>{errors.image_url?.message}</p>}
+				{errors.image_url && (
+					<p className="text-red-500 text-sm mt-1">
+						{errors.image_url?.message}
+					</p>
+				)}
 			</div>
 
-			<button
-				type="submit"
-				className={`btn ${user ? 'btn-warning' : 'btn-dark'}`}
-			>
-				{user ? 'Update' : 'Create'}
-			</button>
-
-			{user && (
-				<button type="button" className="btn btn-light ms-2" onClick={onCancel}>
-					Cancel
+			<div className="flex gap-2">
+				<button
+					type="submit"
+					className={`px-4 py-2 rounded text-white ${
+						user
+							? 'bg-yellow-500 hover:bg-yellow-600'
+							: 'bg-gray-900 hover:bg-gray-800'
+					}`}
+				>
+					{user ? 'Update' : 'Create'}
 				</button>
-			)}
+				{user && (
+					<button
+						type="button"
+						className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100"
+						onClick={onCancel}
+					>
+						Cancel
+					</button>
+				)}
+			</div>
 		</form>
 	);
 }

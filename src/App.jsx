@@ -24,7 +24,6 @@ function App() {
 		closeModal();
 	};
 	const handleAdd = () => {
-		console.log('Push add');
 		openModal();
 		setModalContent(<Form onSubmit={handleCreate} />);
 	};
@@ -56,8 +55,15 @@ function App() {
 	return (
 		<>
 			<div>
-				<h1>USER CRUD</h1>
-				<button onClick={handleAdd}>Add user</button>
+				<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 py-5 text-center ">
+					USUARIOS
+				</h1>
+				<button
+					onClick={handleAdd}
+					className="mt-4 mx-5 sm:mt-0 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition "
+				>
+					Add user
+				</button>
 				{/* ERROR MESSAGE */}
 				{error && <p>{error}</p>}
 				{/* User List */}
