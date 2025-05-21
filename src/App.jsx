@@ -29,7 +29,7 @@ function App() {
 	};
 	const handleDelete = (user) => {
 		const confirmDelete = window.confirm(
-			`Are you sure you want to delete ${user.first_name} ${user.last_name}?`,
+			`¿Estás seguro que deseas eliminar a ${user.first_name} ${user.last_name}?`,
 		);
 		if (confirmDelete) {
 			remove(user.id);
@@ -54,7 +54,7 @@ function App() {
 
 	return (
 		<>
-			<div>
+			<div className="bg-gray-100 ">
 				<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 py-5 text-center ">
 					USUARIOS
 				</h1>
@@ -62,13 +62,13 @@ function App() {
 					onClick={handleAdd}
 					className="mt-4 mx-5 sm:mt-0 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition "
 				>
-					Add user
+					Añadir usuario
 				</button>
 				{/* ERROR MESSAGE */}
 				{error && <p>{error}</p>}
 				{/* User List */}
 				{loading ? (
-					<p>Loading...</p>
+					<p>Cargando...</p>
 				) : (
 					users && (
 						<UserContent

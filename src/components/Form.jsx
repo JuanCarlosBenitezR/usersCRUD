@@ -58,7 +58,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 			<div>
 				<input
 					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="First name"
+					placeholder="Nombre"
 					{...register('first_name')}
 				/>
 				{errors.first_name && (
@@ -71,7 +71,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 			<div>
 				<input
 					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="Last name"
+					placeholder="Apellido"
 					{...register('last_name')}
 				/>
 
@@ -99,7 +99,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				<input
 					type="password"
 					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="Password"
+					placeholder="Contraseña"
 					{...register('password')}
 				/>
 
@@ -114,7 +114,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				<input
 					type="date"
 					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="Birthday"
+					placeholder="Fecha de nacimiento"
 					{...register('birthday')}
 				/>
 
@@ -127,7 +127,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 			<div>
 				<input
 					className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-					placeholder="Image URL"
+					placeholder="Imagen URL"
 					{...register('image_url')}
 				/>
 				{errors.image_url && (
@@ -146,7 +146,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 							: 'bg-gray-900 hover:bg-gray-800'
 					}`}
 				>
-					{user ? 'Update' : 'Create'}
+					{user ? 'Actualizar' : 'Crear'}
 				</button>
 				{user && (
 					<button
@@ -154,7 +154,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 						className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100"
 						onClick={onCancel}
 					>
-						Cancel
+						Cancelar
 					</button>
 				)}
 			</div>

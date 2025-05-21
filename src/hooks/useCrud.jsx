@@ -13,7 +13,8 @@ export function useCrud(url) {
 			const res = await api.current.get('/');
 			setData(res.data.results);
 		} catch (error) {
-			const errorMesage = error.response?.data?.message || 'Error getting data';
+			const errorMesage =
+				error.response?.data?.message || 'Error obteniendo la información';
 			setError(errorMesage);
 			console.error('[Error GetAll]: ', error.message);
 		}
@@ -26,7 +27,7 @@ export function useCrud(url) {
 			setData((prev) => [...prev, newItem]);
 		} catch (error) {
 			const errorMesage =
-				error.response?.data?.message || 'Error creating data';
+				error.response?.data?.message || 'Error creando la información';
 			setError(errorMesage);
 			console.error('[Error Create]: ', error.message);
 		}
@@ -47,7 +48,7 @@ export function useCrud(url) {
 			);
 		} catch (error) {
 			const errorMesage =
-				error.response?.data?.message || 'Error updating data';
+				error.response?.data?.message || 'Error actualizando la información';
 			setError(errorMesage);
 			console.error('[Error Update]: ', error.message);
 		}
@@ -60,7 +61,7 @@ export function useCrud(url) {
 			setData((prev) => prev.filter(deletedItem));
 		} catch (error) {
 			const errorMesage =
-				error.response?.data?.message || 'Error deleting data';
+				error.response?.data?.message || 'Error borrando la información';
 			setError(errorMesage);
 			console.error('[Error Delete]: ', error.message);
 		}

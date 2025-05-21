@@ -18,12 +18,13 @@ function UserCard({ user, onEdit, onDelete }) {
 			<h2 className="text-lg font-semibold text-gray-900">
 				{user.first_name} {user.last_name}
 			</h2>
+			<div className="w-full h-1 bg-stone-50 mb-4 rounded" />
 			<p className="text-gray-600 text-sm">{user.email}</p>
 			<p className="flex item-center text-gray-500 text-sm mb-4 ">
 				<GoGift className="mr-2" />
 				{formatDate(user.birthday)}
 			</p>
-
+			<div className="w-full h-1 bg-stone-50 mb-4 rounded" />
 			<div className=" flex space-x-2">
 				<button
 					onClick={() => onEdit(user)}
