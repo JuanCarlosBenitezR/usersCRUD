@@ -1,74 +1,82 @@
 import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 import { useCrud } from './hooks/useCrud';
-import { get } from 'react-hook-form';
 import UserContent from './components/UserContent';
 import Modal from './components/Modal';
 import Form from './components/Form';
 import { useModal } from './hooks/useModal';
-
+const baseURL =
+	'https://users-crud-api-production-9c59.up.railway.app/api/v1/users';
 function App() {
-	const baseURL =
-		'https://users-crud-api-production-9c59.up.railway.app/api/v1/users';
-	const [
-		{ results: users },
-		loading,
-		error,
-		{ getAll, create, update, remove },
-	] = useCrud(baseURL);
-	const { isOpen, openModal, closeModal } = useModal();
+	const [users, loading, error, { getAll, create, update, remove }] =
+		useCrud(baseURL);
+
+	const { isOpen, openModal, closeModal, modalContent, setModalContent } =
+		useModal();
 	const [selectedUser, SetSelectedUser] = useState(null);
 
 	useEffect(() => {
 		getAll();
 	}, []);
 
-	const handleSubmit = async (dataForm) => {
-		if (selectedUser && selectedUser.id) {
-			await update(dataForm, selectedUser.id);
-		} else {
-			await create(dataForm);
-		}
+	const handleCreate = (dataForm) => {
+		create(dataForm);
 		closeModal();
+	};
+	const handleAdd = () => {
+		console.log('Push add');
+		openModal();
+		setModalContent(<Form onSubmit={handleCreate} />);
+	};
+	const handleDelete = (user) => {
+		const confirmDelete = window.confirm(
+			`Are you sure you want to delete ${user.first_name} ${user.last_name}?`,
+		);
+		if (confirmDelete) {
+			remove(user.id);
+		}
+	};
+	const handleCancel = () => {
 		SetSelectedUser(null);
+		closeModal();
+	};
+	const handleUpdate = (dataForm) => {
+		update(selectedUser.id, dataForm);
+		SetSelectedUser(null);
+		closeModal();
 	};
 	const handleEdit = (user) => {
 		SetSelectedUser(user);
 		openModal();
+		setModalContent(
+			<Form onSubmit={handleUpdate} onCancel={handleCancel} user={user} />,
+		);
 	};
-	const handleDelete = (id) => {
-		remove(id);
-	};
-	const handleCancel = () => {
-		SetSelectedUser(null);
-	};
+
 	return (
 		<>
 			<div>
 				<h1>USER CRUD</h1>
-				<button onClick={openModal}>Add user</button>
+				<button onClick={handleAdd}>Add user</button>
+				{/* ERROR MESSAGE */}
+				{error && <p>{error}</p>}
+				{/* User List */}
+				{loading ? (
+					<p>Loading...</p>
+				) : (
+					users && (
+						<UserContent
+							users={users}
+							onEdit={handleEdit}
+							onDelete={handleDelete}
+						/>
+					)
+				)}
 				{/* FORM */}
-
 				<Modal openModal={isOpen} closeModal={closeModal}>
-					<Form onSubmit={handleSubmit} onCancel={handleCancel} />
+					{modalContent}
 				</Modal>
 			</div>
-			{/* ERROR MESSAGE */}
-			{error && <p>{error}</p>}
-			{/* User List */}
-			{loading ? (
-				<p>Loading...</p>
-			) : (
-				users && (
-					<UserContent
-						users={users}
-						onEdit={handleEdit}
-						onDelete={handleDelete}
-					/>
-				)
-			)}
 		</>
 	);
 }

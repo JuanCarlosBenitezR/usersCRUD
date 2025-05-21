@@ -5,9 +5,13 @@ import { z } from 'zod';
 import { formatDate } from '../lib/util';
 
 const schema = z.object({
-	first_name: z.string().min(1, { message: 'First name is required' }),
-	last_name: z.string().min(1, { message: 'Last name is required' }),
-	email: z.string().email({ message: 'Invalid email address' }),
+	first_name: z.string().min(1, 'First name is required'),
+	last_name: z.string().min(1, 'Last name is required'),
+	email: z
+		.string()
+		.min(1, 'Este campo es requerido')
+		.email('Invalid email address'),
+	password: z.string().min(6, 'Password must be at least 6 characters long'),
 	birthday: z.coerce.date(),
 	image_url: z.string().url().or(z.literal('')),
 });
@@ -26,7 +30,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 		reset,
 	} = useForm({
 		resolver: zodResolver(schema),
-		defaultValues: user ? user : defaultValues,
+		defaultValues: defaultValues,
 	});
 	useEffect(() => {
 		if (user) {
@@ -39,89 +43,88 @@ function Form({ onSubmit, onCancel, user = null }) {
 
 	const onSubmitForm = (dataForm) => {
 		if (user) {
-			onSubmit({ ...dataform, id: user.id });
+			onSubmit({ ...dataForm, id: user.id });
 		} else {
 			onSubmit(dataForm);
 		}
 		reset(defaultValues);
 	};
+
 	return (
-		<div>
-			<form onSubmit={handleSubmit(onSubmitForm)}>
-				<div className="form-floating mb-3">
-					<input
-						className="form-control"
-						id="floatingInput"
-						placeholder="Brand"
-						{...register('brand')}
-					/>
-					<label htmlFor="floatingInput">Brand</label>
-					{errors.name && <p>{errors.name?.message}</p>}
-				</div>
+		<form onSubmit={handleSubmit(onSubmitForm)}>
+			<div className="form-floating">
+				<input
+					className="form-control"
+					placeholder="First name"
+					{...register('first_name')}
+				/>
+				{errors.name && <p>{errors.name?.message}</p>}
+			</div>
 
-				<div className="form-floating mb-3">
-					<input
-						className="form-control"
-						id="floatingInput"
-						placeholder=""
-						{...register('first_name')}
-					/>
-					<label htmlFor="floatingInput">first_name</label>
-					{errors.first_name && <p>{errors.first_name?.message}</p>}
-				</div>
+			<div className="form-floating mb-3">
+				<input
+					className="form-control"
+					placeholder="Last name"
+					{...register('last_name')}
+				/>
 
-				<div className="form-floating mb-3">
-					<input
-						className="form-control"
-						id="floatingInput"
-						placeholder="Color"
-						{...register('last_name')}
-					/>
-					<label htmlFor="floatingInput">Last name</label>
-					{errors.last_name && <p>{errors.last_name?.message}</p>}
-				</div>
+				{errors.last_name && <p>{errors.last_name?.message}</p>}
+			</div>
 
-				<div className="form-floating mb-3">
-					<input
-						className="form-control"
-						id="floatingInput"
-						placeholder="Year"
-						{...register('email')}
-					/>
-					<label htmlFor="floatingInput">Email</label>
-					{errors.email && <p>{errors.email?.message}</p>}
-				</div>
+			<div className="form-floating mb-3">
+				<input
+					type="email"
+					className="form-control"
+					placeholder="Email"
+					{...register('email')}
+				/>
 
-				<div className="form-floating mb-3">
-					<input
-						type="date"
-						className="form-control"
-						id="floatingInput"
-						placeholder="Price"
-						{...register('birthday')}
-					/>
-					<label htmlFor="floatingInput">Birtday</label>
-					{errors.birthday && <p>{errors.birthday?.message}</p>}
-				</div>
+				{errors.email && <p>{errors.email?.message}</p>}
+			</div>
 
-				<button
-					type="submit"
-					className={`btn ${user ? 'btn-warning' : 'btn-dark'}`}
-				>
-					{user ? 'Update' : 'Create'}
+			<div className="form-floating mb-3">
+				<input
+					type="password"
+					className="form-control"
+					placeholder="Password"
+					{...register('password')}
+				/>
+
+				{errors.password && <p>{errors.password?.message}</p>}
+			</div>
+
+			<div className="form-floating mb-3">
+				<input
+					type="date"
+					className="form-control"
+					placeholder="Birthday"
+					{...register('birthday')}
+				/>
+
+				{errors.birthday && <p>{errors.birthday?.message}</p>}
+			</div>
+			<div className="form-floating mb-3">
+				<input
+					className="form-control"
+					placeholder="Image URL"
+					{...register('image_url')}
+				/>
+				{errors.image_url && <p>{errors.image_url?.message}</p>}
+			</div>
+
+			<button
+				type="submit"
+				className={`btn ${user ? 'btn-warning' : 'btn-dark'}`}
+			>
+				{user ? 'Update' : 'Create'}
+			</button>
+
+			{user && (
+				<button type="button" className="btn btn-light ms-2" onClick={onCancel}>
+					Cancel
 				</button>
-
-				{user && (
-					<button
-						type="button"
-						className="btn btn-light ms-2"
-						onClick={onCancel}
-					>
-						Cancel
-					</button>
-				)}
-			</form>
-		</div>
+			)}
+		</form>
 	);
 }
 

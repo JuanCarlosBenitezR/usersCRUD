@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 export function useModal() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [modalContent, setModalContent] = useState(null);
 	const openModal = () => {
 		setIsOpen(true);
 	};
@@ -12,5 +13,7 @@ export function useModal() {
 		isOpen,
 		openModal,
 		closeModal,
+		modalContent,
+		setModalContent,
 	};
 }

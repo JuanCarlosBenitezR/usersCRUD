@@ -11,7 +11,7 @@ export function useCrud(url) {
 	const getAll = useCallback(async () => {
 		try {
 			const res = await api.current.get('/');
-			setData(res.data);
+			setData(res.data.results);
 		} catch (error) {
 			const errorMesage = error.response?.data?.message || 'Error getting data';
 			setError(errorMesage);
@@ -32,7 +32,7 @@ export function useCrud(url) {
 		}
 	}, []);
 
-	const update = useCallback(async (item, id) => {
+	const update = useCallback(async (id, item) => {
 		try {
 			const res = await api.current.put(`/${id}`, item);
 			const itemEdited = res.data;
