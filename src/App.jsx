@@ -13,7 +13,7 @@ function App() {
 
 	const { isOpen, openModal, closeModal, modalContent, setModalContent } =
 		useModal();
-	const [selectedUser, SetSelectedUser] = useState(null);
+	const [selectedUser, setSelectedUser] = useState(null);
 
 	useEffect(() => {
 		getAll();
@@ -36,16 +36,16 @@ function App() {
 		}
 	};
 	const handleCancel = () => {
-		SetSelectedUser(null);
+		setSelectedUser(null);
 		closeModal();
 	};
 	const handleUpdate = (dataForm) => {
-		update(selectedUser.id, dataForm);
-		SetSelectedUser(null);
+		update(dataForm.id, dataForm);
+		setSelectedUser(null);
 		closeModal();
 	};
 	const handleEdit = (user) => {
-		SetSelectedUser(user);
+		setSelectedUser(user);
 		openModal();
 		setModalContent(
 			<Form onSubmit={handleUpdate} onCancel={handleCancel} user={user} />,
@@ -53,37 +53,35 @@ function App() {
 	};
 
 	return (
-		<>
-			<div className="bg-gray-100 ">
-				<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 py-5 text-center ">
-					USUARIOS
-				</h1>
-				<button
-					onClick={handleAdd}
-					className="mt-4 mx-5 sm:mt-0 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition "
-				>
-					Añadir usuario
-				</button>
-				{/* ERROR MESSAGE */}
-				{error && <p>{error}</p>}
-				{/* User List */}
-				{loading ? (
-					<p>Cargando...</p>
-				) : (
-					users && (
-						<UserContent
-							users={users}
-							onEdit={handleEdit}
-							onDelete={handleDelete}
-						/>
-					)
-				)}
-				{/* FORM */}
-				<Modal openModal={isOpen} closeModal={closeModal}>
-					{modalContent}
-				</Modal>
-			</div>
-		</>
+		<div className="main-screen  text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl  h-full  ">
+			<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 my-5 text-center ">
+				USUARIOS
+			</h1>
+			<button
+				onClick={handleAdd}
+				className="my-4 mx-5  px-4 py-2 bg-blue-600 text-white  font-medium rounded hover:bg-blue-700 transition "
+			>
+				Añadir usuario
+			</button>
+			{/* ERROR MESSAGE */}
+			{error && <p>{error}</p>}
+			{/* User List */}
+			{loading ? (
+				<p>Cargando...</p>
+			) : (
+				users && (
+					<UserContent
+						users={users}
+						onEdit={handleEdit}
+						onDelete={handleDelete}
+					/>
+				)
+			)}
+			{/* FORM */}
+			<Modal openModal={isOpen} closeModal={closeModal}>
+				{modalContent}
+			</Modal>
+		</div>
 	);
 }
 

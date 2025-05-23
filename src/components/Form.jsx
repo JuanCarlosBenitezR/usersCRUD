@@ -62,9 +62,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 					{...register('first_name')}
 				/>
 				{errors.first_name && (
-					<p className="text-red-500 text-sm mt-1">
-						{errors.first_name?.message}
-					</p>
+					<p className="text-red-500  mt-1">{errors.first_name?.message}</p>
 				)}
 			</div>
 
@@ -76,9 +74,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				/>
 
 				{errors.last_name && (
-					<p className="text-red-500 text-sm mt-1">
-						{errors.last_name?.message}
-					</p>
+					<p className="text-red-500  mt-1">{errors.last_name?.message}</p>
 				)}
 			</div>
 
@@ -91,7 +87,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				/>
 
 				{errors.email && (
-					<p className="text-red-500 text-sm mt-1">{errors.email?.message}</p>
+					<p className="text-red-500  mt-1">{errors.email?.message}</p>
 				)}
 			</div>
 
@@ -104,9 +100,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				/>
 
 				{errors.password && (
-					<p className="text-red-500 text-sm mt-1">
-						{errors.password?.message}
-					</p>
+					<p className="text-red-500  mt-1">{errors.password?.message}</p>
 				)}
 			</div>
 
@@ -119,9 +113,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 				/>
 
 				{errors.birthday && (
-					<p className="text-red-500 text-sm mt-1">
-						{errors.birthday?.message}
-					</p>
+					<p className="text-red-500  mt-1">{errors.birthday?.message}</p>
 				)}
 			</div>
 			<div>
@@ -131,9 +123,7 @@ function Form({ onSubmit, onCancel, user = null }) {
 					{...register('image_url')}
 				/>
 				{errors.image_url && (
-					<p className="text-red-500 text-sm mt-1">
-						{errors.image_url?.message}
-					</p>
+					<p className="text-red-500  mt-1">{errors.image_url?.message}</p>
 				)}
 			</div>
 

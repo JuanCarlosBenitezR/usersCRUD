@@ -1,0 +1,6 @@
+@media (min-width: 2500px) {
+	.main-screen {
+		max-width: 2500px;
+		margin: 0 auto;
+	}
+}
