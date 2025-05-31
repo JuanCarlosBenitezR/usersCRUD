@@ -5,6 +5,7 @@ import UserContent from './components/UserContent';
 import Modal from './components/Modal';
 import Form from './components/Form';
 import { useModal } from './hooks/useModal';
+import ModalFeedback from './components/ModalFeedback';
 const baseURL =
 	'https://users-crud-api-production-9c59.up.railway.app/api/v1/users';
 function App() {
@@ -15,6 +16,14 @@ function App() {
 		useModal();
 	const [selectedUser, setSelectedUser] = useState(null);
 
+	// Estado para feedback
+	const [feedback, setFeedback] = useState({ open: false, message: '' });
+
+	const showFeedback = (message) => {
+		setFeedback({ open: true, message });
+		setTimeout(() => setFeedback({ open: false, message: '' }), 2000);
+	};
+
 	useEffect(() => {
 		getAll();
 	}, []);
@@ -22,6 +31,7 @@ function App() {
 	const handleCreate = (dataForm) => {
 		create(dataForm);
 		closeModal();
+		showFeedback('Usuario creado exitosamente');
 	};
 	const handleAdd = () => {
 		openModal();
@@ -33,6 +43,7 @@ function App() {
 		);
 		if (confirmDelete) {
 			remove(user.id);
+			showFeedback('Usuario eliminado exitosamente');
 		}
 	};
 	const handleCancel = () => {
@@ -43,6 +54,7 @@ function App() {
 		update(dataForm.id, dataForm);
 		setSelectedUser(null);
 		closeModal();
+		showFeedback('Usuario actualizado exitosamente');
 	};
 	const handleEdit = (user) => {
 		setSelectedUser(user);
@@ -81,6 +93,11 @@ function App() {
 			<Modal openModal={isOpen} closeModal={closeModal}>
 				{modalContent}
 			</Modal>
+			<ModalFeedback
+				open={feedback.open}
+				message={feedback.message}
+				onClose={() => setFeedback({ open: false, message: '' })}
+			/>
 		</div>
 	);
 }
